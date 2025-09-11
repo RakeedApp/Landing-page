@@ -70,6 +70,51 @@
     html[data-lang="ar"] .price-row { flex-direction: row-reverse; }
     html[data-lang="ar"] .grid-2,
     html[data-lang="ar"] .grid-3 { direction: ltr; }
+    
+    /* RTL text alignment for Arabic */
+    html[data-lang="ar"] h1,
+    html[data-lang="ar"] h2,
+    html[data-lang="ar"] h3,
+    html[data-lang="ar"] p,
+    html[data-lang="ar"] .lead,
+    html[data-lang="ar"] .section-lead,
+    html[data-lang="ar"] .card,
+    html[data-lang="ar"] .list,
+    html[data-lang="ar"] .eyebrow { text-align: right; }
+    
+    /* RTL for specific components */
+    html[data-lang="ar"] .hero-grid > div:first-child { text-align: right; }
+    html[data-lang="ar"] .card h3,
+    html[data-lang="ar"] .card p { text-align: right; }
+    
+    /* Fix list RTL alignment */
+    html[data-lang="ar"] .list { direction: rtl; }
+    html[data-lang="ar"] .list li { 
+      direction: rtl;
+      text-align: right;
+      justify-content: flex-end;
+      flex-direction: row-reverse;
+    }
+    html[data-lang="ar"] .list li .dot { 
+      margin-left: 10px; 
+      margin-right: 0; 
+      order: 2;
+    }
+    html[data-lang="ar"] .list li {
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Keep footer layout fixed for both languages */
+    .footer-container { direction: ltr !important; }
+    .footer-container > * { direction: ltr !important; }
+    
+    /* Keep auction demo in LTR for both languages */
+    .auction-demo,
+    .auction-card,
+    .auction-price,
+    .auction-timer,
+    .bidders { direction: ltr !important; text-align: center !important; }
 
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -277,6 +322,48 @@
     .reveal { opacity: 0; transform: translateY(18px); transition: .6s cubic-bezier(.2,.8,.2,1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* Auction Animation Styles */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0.3; }
+    }
+    
+    @keyframes priceGlow {
+      0%, 100% { 
+        text-shadow: 0 0 5px rgba(123, 104, 238, 0.3);
+        transform: scale(1);
+      }
+      50% { 
+        text-shadow: 0 0 20px rgba(123, 104, 238, 0.6);
+        transform: scale(1.02);
+      }
+    }
+    
+    @keyframes progressShimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .auction-card {
+      position: relative;
+    }
+    
+    .auction-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: progressShimmer 3s infinite;
+    }
+
     /* Responsive */
     @media (max-width: 960px) {
       .hero-grid { grid-template-columns: 1fr; }
@@ -465,6 +552,16 @@
           <h3 data-lang="ar">أمان ضد الاحتيال</h3>
           <p data-lang="ar">توثيق تجّار، تدقيق القوائم، وحماية للمشتري عشان ثقة المنصّة</p>
         </div>
+        <div class="card reveal" data-lang="en">
+          <div class="icon yellow" aria-hidden="true">🎯</div>
+          <h3>Target Price Alerts</h3>
+          <p>Set your desired price and get instant notifications when items reach your target. Never miss a deal again</p>
+        </div>
+        <div class="card reveal" data-lang="ar">
+          <div class="icon yellow" aria-hidden="true">🎯</div>
+          <h3>تنبيهات السعر المستهدف</h3>
+          <p>حدد السعر المطلوب واحصل على إشعارات فورية عند وصول السلع لهدفك. لا تفوت صفقة مرة أخرى</p>
+        </div>
       </div>
     </div>
   </section>
@@ -520,52 +617,51 @@
   <!-- Auction Features -->
   <section>
     <div class="container">
-      <h2 class="section-title" data-lang="en">Advanced Auction Features</h2>
-      <p class="section-lead" data-lang="en">Experience the future of dynamic pricing with our cutting-edge auction technology</p>
-      <h2 class="section-title" data-lang="ar">مزايا المزاد المتقدمة</h2>
-      <p class="section-lead" data-lang="ar">اختبر مستقبل التسعير الديناميكي مع تقنية المزاد المتطورة</p>
-      <div class="grid grid-3">
-        <div class="card reveal">
+      <h2 class="section-title" data-lang="en">Auction Features</h2>
+      <p class="section-lead" data-lang="en">Experience dynamic pricing with our auction technology</p>
+      <h2 class="section-title" data-lang="ar">مزايا المزاد</h2>
+      <p class="section-lead" data-lang="ar">اختبر التسعير الديناميكي مع تقنية المزاد</p>
+      <div class="grid grid-1" style="justify-content: center;">
+        <div class="card reveal" style="max-width: 500px;">
           <div class="icon cyan" aria-hidden="true">⏰</div>
-          <h3 data-lang="en">Time-Based Auctions</h3>
-          <p data-lang="en">Automated price reductions at scheduled intervals. Set your own timing strategy for maximum impact</p>
-          <h3 data-lang="ar">مزادات قائمة على الوقت</h3>
-          <p data-lang="ar">تقليل أسعار آلي بفترات مجدولة. حدد استراتيجية التوقيت الخاصة بك لأقصى تأثير</p>
+          <h3 data-lang="en">Live Auctions</h3>
+          <p data-lang="en">Participate in real-time auctions on various products with competitive bidding</p>
+          <h3 data-lang="ar">مزادات مباشرة</h3>
+          <p data-lang="ar">شارك في مزادات فورية على منتجات متنوعة مع مزايدة تنافسية</p>
         </div>
-        <div class="card reveal">
-          <div class="icon yellow" aria-hidden="true">🎯</div>
-          <h3 data-lang="en">Target Price Alerts</h3>
-          <p data-lang="en">Set your desired price and get instant notifications when items reach your target. Never miss a deal again</p>
-          <h3 data-lang="ar">تنبيهات السعر المستهدف</h3>
-          <p data-lang="ar">حدد السعر المطلوب واحصل على إشعارات فورية عند وصول السلع لهدفك. لا تفوت صفقة مرة أخرى</p>
-        </div>
-        <div class="card reveal">
-          <div class="icon green" aria-hidden="true">📊</div>
-          <h3 data-lang="en">Real-Time Analytics</h3>
-          <p data-lang="en">Track auction performance, buyer engagement, and conversion rates with live dashboards and insights</p>
-          <h3 data-lang="ar">تحليلات فورية</h3>
-          <p data-lang="ar">تتبع أداء المزاد، تفاعل المشترين، ومعدلات التحويل مع لوحات تحكم مباشرة ورؤى</p>
-        </div>
-        <div class="card reveal">
-          <div class="icon pink" aria-hidden="true">🤖</div>
-          <h3 data-lang="en">AI-Powered Pricing</h3>
-          <p data-lang="en">Smart algorithms optimize price drops based on demand, inventory levels, and market conditions</p>
-          <h3 data-lang="ar">تسعير مدعوم بالذكاء الاصطناعي</h3>
-          <p data-lang="ar">خوارزميات ذكية تحسن نزول الأسعار بناءً على الطلب، مستويات المخزون، وظروف السوق</p>
-        </div>
-        <div class="card reveal">
-          <div class="icon cyan" aria-hidden="true">🔔</div>
-          <h3 data-lang="en">Smart Notifications</h3>
-          <p data-lang="en">Multi-channel alerts via email, SMS, and push notifications. Stay connected to your favorite auctions</p>
-          <h3 data-lang="ar">إشعارات ذكية</h3>
-          <p data-lang="ar">تنبيهات متعددة القنوات عبر البريد الإلكتروني، الرسائل النصية، والإشعارات المباشرة</p>
-        </div>
-        <div class="card reveal">
-          <div class="icon green" aria-hidden="true">🛡️</div>
-          <h3 data-lang="en">Secure Transactions</h3>
-          <p data-lang="en">End-to-end encryption, secure payments, and fraud protection ensure safe and reliable transactions</p>
-          <h3 data-lang="ar">معاملات آمنة</h3>
-          <p data-lang="ar">تشفير شامل، مدفوعات آمنة، وحماية من الاحتيال تضمن معاملات آمنة وموثوقة</p>
+      </div>
+      
+      <!-- Animated Auction Demo -->
+      <div class="auction-demo reveal" style="margin-top: 40px;">
+        <div class="auction-card glass" style="padding: 24px; text-align: center; position: relative; overflow: hidden;">
+          <div class="auction-badge" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(180deg, #ff6b6b, #ee5a52); color: white; padding: 8px 16px; border-radius: 20px; font-weight: 700; margin-bottom: 16px; animation: pulse 2s infinite;">
+            <span class="live-dot" style="width: 8px; height: 8px; background: #fff; border-radius: 50%; animation: blink 1.5s infinite;"></span>
+            <span data-lang="en">LIVE AUCTION</span>
+            <span data-lang="ar">مزاد مباشر</span>
+          </div>
+          <h3 style="margin: 0 0 8px; color: var(--text);" data-lang="en">Wireless Headphones</h3>
+          <h3 style="margin: 0 0 8px; color: var(--text);" data-lang="ar">سماعات لاسلكية</h3>
+          <div class="auction-price" style="font-size: 32px; font-weight: 800; color: var(--primary); margin: 16px 0; animation: priceGlow 3s infinite;">
+            <span class="currency" style="font-size: 20px;">ر.س</span>
+            <span class="price-value" id="auctionPrice">89</span>
+          </div>
+          <div class="auction-timer" style="display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--warning); font-weight: 600; margin: 16px 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+              <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span data-lang="en">Auction ends in <span id="auctionCountdown">45</span>s</span>
+            <span data-lang="ar">المزاد ينتهي بعد <span id="auctionCountdownAr">45</span>ث</span>
+          </div>
+          <div class="bidders" style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0; font-size: 14px; color: var(--muted);">
+            <span data-lang="en">👥 <span id="bidderCount">3</span> bidders</span>
+            <span data-lang="ar">👥 <span id="bidderCountAr">3</span> مزايدين</span>
+          </div>
+          <div class="auction-progress" style="width: 100%; height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; margin: 16px 0;">
+            <div class="progress-bar" style="height: 100%; background: linear-gradient(90deg, var(--accent), var(--primary)); width: 75%; animation: progressShimmer 2s infinite;"></div>
+          </div>
+          <p style="color: var(--muted); margin: 0; font-size: 14px;" data-lang="en">Watch the bidding in real-time!</p>
+          <p style="color: var(--muted); margin: 0; font-size: 14px;" data-lang="ar">شاهد المزايدة لحظياً!</p>
         </div>
       </div>
     </div>
@@ -647,11 +743,8 @@
   </section>
 
   <footer>
-    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <span class="logo"><img src="assets/logo.png" alt="Tajweer logo" /></span>
-        <strong>Tajweer</strong>
-      </div>
+    <div class="container footer-container" style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+      <!-- Left: Links -->
       <div style="display:flex; gap:14px; color:var(--muted);">
         <!-- EN -->
         <a href="#features" style="color:inherit; text-decoration:none" data-lang="en">Features</a>
@@ -662,7 +755,13 @@
         <a href="#how" style="color:inherit; text-decoration:none" data-lang="ar">كيف يشتغل</a>
         <a href="#waitlist" style="color:inherit; text-decoration:none" data-lang="ar">القائمة</a>
       </div>
-      <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
+      
+      <!-- Center: Logo, Contact & Copyright -->
+      <div style="display:flex; flex-direction:column; gap:8px; align-items:center; text-align:center;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="logo"><img src="assets/logo.png" alt="Tajweer logo" /></span>
+          <strong>Tajweer</strong>
+        </div>
         <div style="display:flex; gap:20px; color:var(--muted); font-size:14px;">
           <a href="mailto:info@tajweer.com" style="color:inherit; text-decoration:none; display:flex; align-items:center; gap:6px;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -681,6 +780,7 @@
         <small style="color:var(--muted)" data-lang="en">© <span id="year"></span> Tajweer. All rights reserved</small>
         <small style="color:var(--muted)" data-lang="ar">© <span id="year"></span> تجوير. كل الحقوق محفوظة</small>
       </div>
+      
     </div>
   </footer>
 
@@ -747,6 +847,123 @@
     }
 
     window.addEventListener('DOMContentLoaded', boot);
+
+    // Auction demo animation - Real auction with bidding
+    const auctionState = { 
+      current: 89, 
+      max: 150, 
+      step: 5, 
+      seconds: 45, 
+      interval: null, 
+      countdown: null,
+      bidders: 3,
+      bidderNames: ['أحمد', 'سارة', 'محمد', 'فاطمة', 'خالد', 'نورا']
+    };
+    const auctionPriceEl = document.getElementById('auctionPrice');
+    const auctionCountdownEl = document.getElementById('auctionCountdown');
+    const auctionCountdownArEl = document.getElementById('auctionCountdownAr');
+    const bidderCountEl = document.getElementById('bidderCount');
+    const bidderCountArEl = document.getElementById('bidderCountAr');
+
+    function updateAuctionPrice() {
+      if (auctionPriceEl) {
+        auctionPriceEl.textContent = auctionState.current.toLocaleString();
+        // Add price increase animation
+        auctionPriceEl.style.animation = 'none';
+        setTimeout(() => {
+          auctionPriceEl.style.animation = 'priceGlow 0.8s ease-out';
+        }, 10);
+      }
+    }
+
+    function updateBidderCount() {
+      if (bidderCountEl) bidderCountEl.textContent = auctionState.bidders;
+      if (bidderCountArEl) bidderCountArEl.textContent = auctionState.bidders;
+    }
+
+    function startAuctionCountdown() {
+      let t = auctionState.seconds;
+      if (auctionCountdownEl) auctionCountdownEl.textContent = t;
+      if (auctionCountdownArEl) auctionCountdownArEl.textContent = t;
+      
+      clearInterval(auctionState.countdown);
+      auctionState.countdown = setInterval(() => {
+        t -= 1;
+        if (auctionCountdownEl) auctionCountdownEl.textContent = Math.max(0, t);
+        if (auctionCountdownArEl) auctionCountdownArEl.textContent = Math.max(0, t);
+        if (t <= 0) {
+          clearInterval(auctionState.countdown);
+          clearInterval(auctionState.interval);
+          if (auctionCountdownEl) auctionCountdownEl.textContent = 'ENDED';
+          if (auctionCountdownArEl) auctionCountdownArEl.textContent = 'انتهى';
+        }
+      }, 1000);
+    }
+
+    function simulateBid() {
+      if (auctionState.current < auctionState.max && auctionState.seconds > 0) {
+        // Random bid increase
+        const bidIncrease = Math.floor(Math.random() * auctionState.step) + 2;
+        auctionState.current += bidIncrease;
+        
+        // Sometimes add a new bidder
+        if (Math.random() < 0.3 && auctionState.bidders < 6) {
+          auctionState.bidders++;
+          updateBidderCount();
+        }
+        
+        updateAuctionPrice();
+        
+        // Show bid notification
+        showBidNotification();
+      }
+    }
+
+    function showBidNotification() {
+      const randomBidder = auctionState.bidderNames[Math.floor(Math.random() * auctionState.bidderNames.length)];
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: linear-gradient(180deg, #4ade80, #22c55e);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        animation: slideIn 0.5s ease-out;
+        z-index: 10;
+      `;
+      notification.textContent = `${randomBidder} زايد!`;
+      document.querySelector('.auction-card').appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 2000);
+    }
+
+    function startAuctionDemo() {
+      updateAuctionPrice();
+      updateBidderCount();
+      startAuctionCountdown();
+      clearInterval(auctionState.interval);
+      // Random bidding every 3-8 seconds
+      auctionState.interval = setInterval(simulateBid, Math.random() * 5000 + 3000);
+    }
+
+    // Add slideIn animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        0% { transform: translateX(100%); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Start auction demo when page loads
+    window.addEventListener('DOMContentLoaded', startAuctionDemo);
 
     // No-redirect form post with feedback
     window.addEventListener('DOMContentLoaded', () => {
