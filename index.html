@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Titles & Descriptions -->
-  <title data-lang="en">Tajweer — Smart Descending-Price Marketplace</title>
-  <meta name="description" data-lang="en" content="Tajweer is a digital auction-style marketplace where prices drop automatically until sold. Win-win for sellers and buyers." />
-  <title data-lang="ar">تجوير — سوق ذكي والسعر ينزل لحاله</title>
-  <meta name="description" data-lang="ar" content="تجوير سوق رقمي على ستايل المزاد، السعر ينزل لحاله لين ينباع. كسبه للبياعة والمشترين." />
+  <title data-lang="en">Hasm — Smart Descending-Price Marketplace</title>
+  <meta name="description" data-lang="en" content="Hasm is a digital auction-style marketplace where prices drop automatically until sold. Win-win for sellers and buyers." />
+  <title data-lang="ar">حسم — سوق ذكي والسعر ينزل لحاله</title>
+  <meta name="description" data-lang="ar" content="حسم سوق رقمي على ستايل المزاد، السعر ينزل لحاله لين ينباع. كسبه للبياعة والمشترين." />
 
   <!-- OpenGraph (keep EN static for crawlers) -->
-  <meta property="og:title" content="Tajweer — Smart Descending-Price Marketplace" />
+  <meta property="og:title" content="Hasm — hasm.io — Smart Descending-Price Marketplace" />
   <meta property="og:description" content="Move overstock fast with automated price drops. Buyers get authentic deals, sellers reduce waste and storage costs." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#0b1221" />
@@ -19,6 +19,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png?v=2" />
   <link rel="apple-touch-icon" href="assets/logo.png?v=2" />
   <link rel="shortcut icon" href="assets/logo.png?v=2" />
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
@@ -34,10 +37,11 @@
       --elev-1: rgba(0, 0, 0, 0.06);
       --elev-2: rgba(0, 0, 0, 0.08);
       --glass: rgba(255, 255, 255, 0.8);
-      --maxw: 1200px;
-      --radius: 16px;
-      --radius-sm: 12px;
-      --shadow: 0 10px 30px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.8);
+      --maxw: 1280px;
+      --radius: 24px;
+      --radius-sm: 16px;
+      --shadow: 0 20px 60px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.8);
+      --shadow-lg: 0 32px 80px rgba(123,104,238,.15), inset 0 1px 0 rgba(255,255,255,.9);
     }
 
     /* Dark mode variables */
@@ -54,7 +58,8 @@
       --elev-1: rgba(255, 255, 255, 0.06);
       --elev-2: rgba(255, 255, 255, 0.08);
       --glass: rgba(13, 22, 45, 0.6);
-      --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+      --shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+      --shadow-lg: 0 32px 80px rgba(123,104,238,.2), inset 0 1px 0 rgba(255,255,255,.06);
     }
 
     /* Language visibility (critical) */
@@ -109,21 +114,41 @@
     .footer-container { direction: ltr !important; }
     .footer-container > * { direction: ltr !important; }
     
-    /* Arabic footer layout: 2 items left, 3 items right */
-    html[data-lang="ar"] .footer-container {
-      flex-direction: row-reverse !important;
+    /* Footer layout */
+    .footer-container {
+      flex-direction: row !important;
+    }
+    /* Center section stays in middle */
+    .footer-container > div:nth-child(2) {
+      order: 2 !important;
     }
     
-    /* Fix footer right section RTL alignment - target specific class */
-    html[data-lang="ar"] .footer-right-section {
-      direction: rtl !important;
-      text-align: right !important;
-      align-items: flex-end !important;
+    /* Arabic: "لا تفوت الصفقة" يسار، القائمة يمين */
+    html[data-lang="ar"] .footer-left-section {
+      align-items: flex-start !important;
+      text-align: left !important;
+      order: 1 !important;
+      margin-right: auto !important;
+      margin-left: 0 !important;
     }
-    html[data-lang="ar"] .footer-right-section > div:first-child {
-      direction: rtl !important;
+    html[data-lang="ar"] .footer-links-section {
+      margin-left: auto !important;
+      margin-right: 0 !important;
+      order: 3 !important;
+    }
+    
+    /* English: "Don't miss the deal" يمين، القائمة يسار */
+    html[data-lang="en"] .footer-left-section {
+      align-items: flex-end !important;
       text-align: right !important;
-      justify-content: flex-end !important;
+      order: 3 !important;
+      margin-left: auto !important;
+      margin-right: 0 !important;
+    }
+    html[data-lang="en"] .footer-links-section {
+      margin-left: 0 !important;
+      margin-right: auto !important;
+      order: 1 !important;
     }
     html[data-lang="ar"] .footer-right-section p {
       direction: rtl !important;
@@ -146,18 +171,57 @@
     body {
       margin: 0;
       color: var(--text);
-      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 700px at 80% -10%, rgba(17, 32, 68, 0.8) 0%, transparent 60%),
-                  radial-gradient(900px 600px at -10% 20%, rgba(26, 53, 90, 0.8) 0%, transparent 60%),
-                  linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+      font: 18px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(123,104,238,.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255,139,209,.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(88,225,163,.04) 0%, transparent 50%),
+        var(--bg-1);
       background-attachment: fixed;
       overflow-x: hidden;
       transition: background 0.3s ease, color 0.3s ease;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      position: relative;
     }
     [data-theme="dark"] body {
-      background: radial-gradient(1200px 700px at 80% -10%, rgba(17, 32, 68, 0.8) 0%, transparent 60%),
-                  radial-gradient(900px 600px at -10% 20%, rgba(26, 53, 90, 0.8) 0%, transparent 60%),
-                  linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(123,104,238,.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255,139,209,.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(88,225,163,.06) 0%, transparent 50%),
+        var(--bg-1);
+    }
+    
+    /* Creative background shapes */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, rgba(123,104,238,.1), rgba(255,139,209,.1));
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      animation: floatShape 20s ease-in-out infinite;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -30%;
+      left: -5%;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(45deg, rgba(255,139,209,.08), rgba(88,225,163,.08));
+      border-radius: 50%;
+      filter: blur(70px);
+      z-index: -1;
+      animation: floatShape 25s ease-in-out infinite reverse;
+    }
+    @keyframes floatShape {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -30px) scale(1.1); }
     }
 
     /* Theme toggle button */
@@ -223,125 +287,579 @@
     [data-theme="dark"] .theme-toggle .moon { display: block; }
     .lang-toggle .lang-text { font-weight: 700; letter-spacing: .3px; font-size: 12px; text-transform: uppercase; }
 
-    /* Decorative aurora */
+    /* Creative aurora effect */
     .aurora {
-      position: fixed; inset: -20vmax; pointer-events: none;
-      background: radial-gradient(60vmax 40vmax at 70% 20%, rgba(134,226,255,.12), transparent 60%),
-                  radial-gradient(50vmax 35vmax at 30% 70%, rgba(255,139,209,.10), transparent 60%),
-                  radial-gradient(55vmax 30vmax at 10% 10%, rgba(88,225,163,.08), transparent 60%);
-      filter: blur(40px) saturate(120%); animation: float 26s ease-in-out infinite alternate;
-      z-index: -1; transition: opacity 0.3s ease;
+      position: fixed; inset: -50vmax; pointer-events: none;
+      background: 
+        radial-gradient(60vmax 40vmax at 70% 20%, rgba(123,104,238,.12), transparent 60%),
+        radial-gradient(50vmax 35vmax at 30% 70%, rgba(255,139,209,.10), transparent 60%),
+        radial-gradient(55vmax 30vmax at 10% 10%, rgba(88,225,163,.08), transparent 60%);
+      filter: blur(40px) saturate(120%); 
+      animation: float 26s ease-in-out infinite alternate;
+      z-index: -1; 
+      transition: opacity 0.3s ease;
     }
-    [data-theme="dark"] .aurora { opacity: 1; }
-    @keyframes float { 0% { transform: translate3d(0, 0, 0) rotate(0deg); } 100% { transform: translate3d(2%, -1%, 0) rotate(3deg); } }
+    [data-theme="dark"] .aurora { 
+      opacity: 1;
+      background: 
+        radial-gradient(60vmax 40vmax at 70% 20%, rgba(123,104,238,.15), transparent 60%),
+        radial-gradient(50vmax 35vmax at 30% 70%, rgba(255,139,209,.12), transparent 60%),
+        radial-gradient(55vmax 30vmax at 10% 10%, rgba(88,225,163,.10), transparent 60%);
+    }
+    @keyframes float { 
+      0% { transform: translate3d(0, 0, 0) rotate(0deg); } 
+      100% { transform: translate3d(2%, -1%, 0) rotate(3deg); } 
+    }
 
-    /* Subtle grid */
+    /* Creative grid overlay */
     .grid-overlay {
       position: fixed; inset: 0;
-      background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: radial-gradient(80% 50% at 50% 35%, rgba(0,0,0,1), rgba(0,0,0,0));
-      pointer-events: none; z-index: -1; transition: opacity 0.3s ease;
+      background-image: 
+        linear-gradient(rgba(123,104,238,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(123,104,238,.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: radial-gradient(80% 50% at 50% 35%, rgba(0,0,0,0.3), rgba(0,0,0,0));
+      pointer-events: none; 
+      z-index: -1; 
+      transition: opacity 0.3s ease;
+      opacity: 0.4;
     }
-    [data-theme="dark"] .grid-overlay { opacity: 1; }
+    [data-theme="dark"] .grid-overlay { 
+      opacity: 0.6;
+      background-image: 
+        linear-gradient(rgba(123,104,238,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(123,104,238,.05) 1px, transparent 1px);
+    }
 
     .container { width: min(100%, var(--maxw)); margin-inline: auto; padding: 0 24px; }
 
-    /* Navbar */
-    .nav { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(160%) blur(8px);
+    /* Creative Navbar */
+    .nav { 
+      position: sticky; top: 0; z-index: 50; 
+      backdrop-filter: saturate(160%) blur(12px);
       background: linear-gradient(to bottom, rgba(255,255,255,.95), rgba(255,255,255,.85));
       border-bottom: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,.04);
     }
     [data-theme="dark"] .nav {
-      background: linear-gradient(to bottom, rgba(11,18,33,.9), rgba(11,18,33,.6));
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: linear-gradient(to bottom, rgba(11,18,33,.95), rgba(11,18,33,.85));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
     }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
-    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
-    .logo { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center;
-      background: transparent; border: none; box-shadow: none;
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+    .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--text); transition: transform 0.2s ease; }
+    .brand:hover { transform: scale(1.02); }
+    .logo { 
+      width: 44px; height: 44px; 
+      border-radius: 14px; 
+      display: grid; 
+      place-items: center;
+      background: linear-gradient(135deg, rgba(123,104,238,.1), rgba(255,139,209,.1));
+      border: 1px solid rgba(123,104,238,.2);
+      box-shadow: 0 4px 12px rgba(123,104,238,.1);
+      transition: all 0.3s ease;
     }
-    .logo img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 10px; }
-    .brand strong { font-weight: 700; letter-spacing: .3px; }
-    .nav-cta { display: flex; align-items: center; gap: 10px; }
-    .btn { cursor: pointer; border: none; border-radius: 12px; padding: 12px 16px; font-weight: 600; transition: .25s ease; }
+    .logo:hover {
+      transform: rotate(5deg) scale(1.05);
+      box-shadow: 0 6px 20px rgba(123,104,238,.2);
+    }
+    .logo img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 12px; }
+    .brand strong { font-weight: 700; font-size: 22px; letter-spacing: -0.02em; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .btn { 
+      cursor: pointer; border: none; border-radius: 14px; 
+      padding: 14px 26px; font-weight: 600; 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
     .btn-primary {
-      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-strong) 100%);
-      color: #ffffff; box-shadow: 0 8px 18px rgba(123,104,238,.35), inset 0 1px 0 rgba(255,255,255,.6);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-strong) 100%);
+      color: #ffffff; 
+      box-shadow: 0 8px 20px rgba(123,104,238,.35), inset 0 1px 0 rgba(255,255,255,.3);
     }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(123,104,238,.45), inset 0 1px 0 rgba(255,255,255,.7); }
-    .btn-ghost { background: transparent; color: var(--text); border: 1px solid rgba(0,0,0,.18); }
-    .btn-ghost:hover { background: rgba(0,0,0,.06); }
+    .btn-primary:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 12px 30px rgba(123,104,238,.45), inset 0 1px 0 rgba(255,255,255,.4);
+    }
+    .btn-ghost { 
+      background: transparent; 
+      color: var(--text); 
+      border: 1.5px solid rgba(0,0,0,.12);
+      position: relative;
+    }
+    .btn-ghost::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      padding: 1.5px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .btn-ghost:hover { 
+      background: rgba(123,104,238,.05);
+      border-color: transparent;
+    }
+    .btn-ghost:hover::after {
+      opacity: 1;
+    }
+    [data-theme="dark"] .btn-ghost {
+      border-color: rgba(255,255,255,.15);
+    }
+    [data-theme="dark"] .btn-ghost:hover {
+      background: rgba(123,104,238,.1);
+    }
 
-    /* Hero */
-    .hero { padding: 80px 0 40px; position: relative; }
-    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 36px; align-items: center; }
-    .eyebrow { color: var(--primary); font-weight: 700; letter-spacing: .2em; font-size: 12px; text-transform: uppercase; }
-    h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.08; margin: 8px 0 12px; }
-    .lead { color: var(--muted); font-size: clamp(16px, 2vw, 20px); max-width: 60ch; }
-    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+    /* Creative Hero */
+    .hero { padding: 120px 0 100px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(123,104,238,.15), transparent 70%);
+      border-radius: 50%;
+      filter: blur(60px);
+      z-index: -1;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 80px; align-items: center; position: relative; }
+    .eyebrow { 
+      color: var(--primary); 
+      font-weight: 700; 
+      letter-spacing: .15em; 
+      font-size: 12px; 
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(123,104,238,.08);
+      border-radius: 20px;
+      border: 1px solid rgba(123,104,238,.15);
+    }
+    .eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+    h1 { 
+      font-size: clamp(52px, 7vw, 80px); 
+      line-height: 1.08; 
+      margin: 0 0 28px; 
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text) 50%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+    .lead { 
+      color: var(--muted); 
+      font-size: clamp(19px, 2.3vw, 23px); 
+      max-width: 68ch;
+      line-height: 1.7;
+      font-weight: 400;
+      position: relative;
+    }
+    .hero-cta { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 40px; }
 
     .glass {
-      background: linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.03));
-      border: 1px solid rgba(0,0,0,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.85));
+      border: 1px solid rgba(0,0,0,.1);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(20px) saturate(180%);
+      position: relative;
+      overflow: hidden;
+    }
+    .glass::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(123,104,238,.3), transparent);
+    }
+    [data-theme="dark"] .glass {
+      background: linear-gradient(180deg, rgba(13,22,45,.8), rgba(13,22,45,.6));
+      border-color: rgba(255,255,255,.12);
     }
 
-    /* Price card */
-    .price-card { padding: 22px; display: grid; gap: 14px; }
-    .badge { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: #04121a; background: linear-gradient(180deg, #a2e2ff, #66cdfc); padding: 6px 10px; border-radius: 20px; }
-    .price-row { display: flex; align-items: baseline; gap: 12px; }
-    .price-value { font-size: 40px; font-weight: 800; letter-spacing: -1px; display: inline-flex; align-items: center; gap: 8px; }
-    .price-prev { color: var(--muted); text-decoration: line-through; }
-    .ticker { display: inline-flex; align-items: center; gap: 8px; color: var(--warning); font-weight: 700; font-variant-numeric: tabular-nums; }
-    .meter { height: 8px; width: 100%; background: rgba(0,0,0,.08); border-radius: 999px; overflow: hidden; }
-    .meter > span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--primary)); width: 65%; transition: width .5s ease; }
+    /* Creative Price card */
+    .price-card { 
+      padding: 36px; 
+      display: grid; 
+      gap: 24px; 
+      position: relative;
+      transform-style: preserve-3d;
+    }
+    .price-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(123,104,238,.1), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .badge { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      font-weight: 700; 
+      color: #04121a; 
+      background: linear-gradient(180deg, #a2e2ff, #66cdfc); 
+      padding: 8px 16px; 
+      border-radius: 20px;
+      font-size: 13px;
+      width: fit-content;
+      box-shadow: 0 4px 12px rgba(102,205,252,.3);
+      position: relative;
+      z-index: 1;
+    }
+    [data-theme="dark"] .badge {
+      background: linear-gradient(180deg, rgba(88,225,163,.3), rgba(88,225,163,.2));
+      color: var(--ok);
+      box-shadow: 0 4px 12px rgba(88,225,163,.2);
+    }
+    .price-row { display: flex; align-items: baseline; gap: 16px; position: relative; z-index: 1; }
+    .price-value { font-size: 52px; font-weight: 900; letter-spacing: -0.03em; display: inline-flex; align-items: center; gap: 10px; color: var(--text); }
+    .price-prev { color: var(--muted); text-decoration: line-through; font-size: 26px; }
+    .ticker { display: inline-flex; align-items: center; gap: 10px; color: var(--warning); font-weight: 700; font-variant-numeric: tabular-nums; font-size: 14px; position: relative; z-index: 1; }
+    .meter { height: 8px; width: 100%; background: rgba(0,0,0,.1); border-radius: 999px; overflow: hidden; position: relative; z-index: 1; }
+    .meter > span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--primary)); width: 65%; transition: width .5s ease; border-radius: 999px; box-shadow: 0 0 10px rgba(123,104,238,.4); }
+    [data-theme="dark"] .meter {
+      background: rgba(255,255,255,.1);
+    }
     .price-currency { color: var(--primary); line-height: 0; display: inline-flex; align-items: center; }
-    .price-currency svg { width: 22px; height: 22px; display: block; }
+    .price-currency svg { width: 26px; height: 26px; display: block; }
 
-    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .stat { padding: 14px; border-radius: 12px; background: rgba(0,0,0,.04); border: 1px solid rgba(0,0,0,.08); text-align: center; }
-    .stat strong { display: block; font-size: 18px; }
-    .stat span { color: var(--muted); font-size: 12px; }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 32px; }
+    .stat { 
+      padding: 24px 20px; 
+      border-radius: 20px; 
+      background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,255,255,.7));
+      border: 1px solid rgba(0,0,0,.08); 
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(123,104,238,.1), transparent);
+      transition: left 0.5s ease;
+    }
+    .stat:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(123,104,238,.15);
+      border-color: rgba(123,104,238,.2);
+    }
+    .stat:hover::before {
+      left: 100%;
+    }
+    [data-theme="dark"] .stat {
+      background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-color: rgba(255,255,255,.1);
+    }
+    .stat strong { display: block; font-size: 17px; font-weight: 800; margin-bottom: 6px; color: var(--text); }
+    .stat span { color: var(--muted); font-size: 13px; }
 
-    /* Sections */
-    section { padding: 70px 0; }
-    .section-title { font-size: clamp(28px, 3vw, 40px); margin: 0 0 8px; }
-    .section-lead { color: var(--muted); margin: 0 0 28px; }
+    /* Creative Sections */
+    section { padding: 120px 0; position: relative; }
+    section:nth-child(even) {
+      background: linear-gradient(180deg, transparent, rgba(123,104,238,.02), transparent);
+    }
+    .section-title { 
+      font-size: clamp(40px, 5vw, 56px); 
+      margin: 0 0 20px; 
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+    .section-lead { 
+      color: var(--muted); 
+      margin: 0 0 56px; 
+      font-size: 19px;
+      line-height: 1.7;
+      max-width: 72ch;
+    }
 
-    /* Cards grid */
-    .grid { display: grid; gap: 18px; }
+    /* Creative Cards grid */
+    .grid { display: grid; gap: 28px; }
     .grid-3 { grid-template-columns: repeat(3, 1fr); }
     .grid-2 { grid-template-columns: repeat(2, 1fr); }
 
-    .card { padding: 20px; border-radius: var(--radius-sm); background: rgba(0,0,0,.04); border: 1px solid rgba(0,0,0,.1); box-shadow: var(--shadow); }
-    .card h3 { margin: 0 0 6px; }
-    .card p { margin: 0; color: var(--muted); }
+    .card { 
+      padding: 36px; 
+      border-radius: 24px; 
+      background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.85));
+      border: 1px solid rgba(0,0,0,.08); 
+      box-shadow: 0 8px 24px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.8);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(123,104,238,.15), inset 0 1px 0 rgba(255,255,255,.9);
+      border-color: rgba(123,104,238,.2);
+    }
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+    [data-theme="dark"] .card {
+      background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-color: rgba(255,255,255,.1);
+      box-shadow: 0 8px 24px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    [data-theme="dark"] .card:hover {
+      border-color: rgba(123,104,238,.3);
+      box-shadow: 0 16px 40px rgba(123,104,238,.2), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .card h3 { 
+      margin: 0 0 14px; 
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+    }
+    /* Audience cards desktop styles */
+    .audience-card {
+      padding: 40px;
+    }
+    .audience-title {
+      font-size: 26px;
+      margin-bottom: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .audience-text {
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .audience-list {
+      margin-top: 20px;
+    }
+    .card p { 
+      margin: 0; 
+      color: var(--muted); 
+      line-height: 1.7;
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+    }
 
-    .icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; margin-bottom: 10px; }
-    .icon.pink { background: linear-gradient(180deg, #ffb1e2, #ff8bd1); color: #491a3a; }
-    .icon.cyan { background: linear-gradient(180deg, #c3f1ff, #86e2ff); color: #093042; }
-    .icon.green { background: linear-gradient(180deg, #a8f3cc, #58e1a3); color: #043924; }
-    .icon.yellow { background: linear-gradient(180deg, #ffe8a9, #ffd166); color: #4a3700; }
+    .icon { 
+      width: 56px; 
+      height: 56px; 
+      display: grid; 
+      place-items: center; 
+      border-radius: 18px; 
+      margin-bottom: 24px;
+      font-size: 0;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .icon svg {
+      width: 28px;
+      height: 28px;
+      stroke-width: 2;
+      color: var(--primary);
+    }
+    .icon.pink svg { color: #ff8bd1; }
+    .icon.cyan svg { color: var(--primary); }
+    .icon.green svg { color: #58e1a3; }
+    .icon.yellow svg { color: #ffd166; }
+    .icon::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .card:hover .icon {
+      transform: rotate(5deg) scale(1.1);
+    }
+    .card:hover .icon::after {
+      opacity: 0.1;
+    }
+    .icon.pink { background: linear-gradient(135deg, rgba(255,139,209,.15), rgba(255,139,209,.1)); }
+    .icon.cyan { background: linear-gradient(135deg, rgba(123,104,238,.15), rgba(123,104,238,.1)); }
+    .icon.green { background: linear-gradient(135deg, rgba(88,225,163,.15), rgba(88,225,163,.1)); }
+    .icon.yellow { background: linear-gradient(135deg, rgba(255,209,102,.15), rgba(255,209,102,.1)); }
 
-    /* Target audience lists */
-    .list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
-    .list li { display: flex; align-items: center; gap: 10px; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(180deg, #c3f1ff, #86e2ff); box-shadow: 0 0 0 3px rgba(134,226,255,.15); }
+    /* Creative Target audience lists */
+    .list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+    .list li { display: flex; align-items: center; gap: 14px; transition: transform 0.2s ease; }
+    .list li:hover { transform: translateX(4px); }
+    html[data-lang="ar"] .list li:hover { transform: translateX(-4px); }
+    .dot { 
+      width: 10px; 
+      height: 10px; 
+      border-radius: 50%; 
+      background: linear-gradient(135deg, var(--primary), var(--accent)); 
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(123,104,238,.15);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(123,104,238,.15); }
+      50% { box-shadow: 0 0 0 6px rgba(123,104,238,.05); }
+    }
 
     /* Tech stack badges */
-    .badges { display: flex; flex-wrap: wrap; gap: 10px; }
-    .badge-tech { padding: 10px 12px; border: 1px solid rgba(0,0,0,.14); border-radius: 12px; background: rgba(0,0,0,.05); display: inline-flex; gap: 10px; align-items: center; }
-    .badge-tech svg { width: 18px; height: 18px; opacity: .9; }
+    .badges { display: flex; flex-wrap: wrap; gap: 12px; }
+    .badge-tech { 
+      padding: 12px 16px; 
+      border: 1px solid rgba(0,0,0,.1); 
+      border-radius: 12px; 
+      background: var(--bg-2); 
+      display: inline-flex; 
+      gap: 10px; 
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .badge-tech:hover {
+      border-color: rgba(0,0,0,.2);
+      transform: translateY(-2px);
+    }
+    [data-theme="dark"] .badge-tech {
+      border-color: rgba(255,255,255,.1);
+      background: rgba(255,255,255,.03);
+    }
+    .badge-tech svg { width: 18px; height: 18px; opacity: .8; }
 
-    /* CTA banner */
-    .cta { display: grid; gap: 16px; padding: 26px; text-align: center; border: 1px solid rgba(0,0,0,.12); background: linear-gradient(180deg, rgba(134,226,255,.1), rgba(0,0,0,.05)); }
-    .cta .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    /* Creative CTA banner */
+    .cta { 
+      display: grid; 
+      gap: 28px; 
+      padding: 64px 40px; 
+      text-align: center; 
+      border: 2px solid transparent;
+      background: linear-gradient(135deg, rgba(123,104,238,.08), rgba(255,139,209,.05)) padding-box,
+                  linear-gradient(135deg, var(--primary), var(--accent)) border-box;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(123,104,238,.1), transparent 70%);
+      border-radius: 50%;
+      animation: rotate 20s linear infinite;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .cta > * { position: relative; z-index: 1; }
+    [data-theme="dark"] .cta {
+      background: linear-gradient(135deg, rgba(123,104,238,.12), rgba(255,139,209,.08)) padding-box,
+                  linear-gradient(135deg, var(--primary), var(--accent)) border-box;
+    }
+    .cta .actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-    /* Footer */
-    footer { padding: 40px 0 60px; color: var(--muted); border-top: 1px solid rgba(0,0,0,.08); background: linear-gradient(to top, rgba(0,0,0,.04), transparent); }
+    /* Creative Footer */
+    footer { 
+      padding: 80px 0 100px; 
+      color: var(--muted); 
+      border-top: 1px solid rgba(0,0,0,.08); 
+      background: linear-gradient(to top, rgba(123,104,238,.03), transparent);
+      position: relative;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(123,104,238,.3), transparent);
+    }
+    [data-theme="dark"] footer {
+      border-top-color: rgba(255,255,255,.1);
+      background: linear-gradient(to top, rgba(123,104,238,.05), transparent);
+    }
 
     /* Reveal on scroll */
     .reveal { opacity: 0; transform: translateY(18px); transition: .6s cubic-bezier(.2,.8,.2,1); }
@@ -391,11 +909,178 @@
 
     /* Responsive */
     @media (max-width: 960px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .hero { padding-top: 56px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero { padding: 60px 0 60px; }
       .hero-stats { grid-template-columns: 1fr; }
       .grid-3 { grid-template-columns: 1fr; }
       .grid-2 { grid-template-columns: 1fr; }
+      section { padding: 60px 0; }
+      .container { padding: 0 20px; }
+      h1 { font-size: clamp(36px, 8vw, 56px); }
+      .section-title { font-size: clamp(28px, 6vw, 40px); }
+    }
+
+    /* Tablet and Mobile */
+    @media (max-width: 768px) {
+      .nav-inner { flex-wrap: wrap; gap: 12px; }
+      .nav-cta { flex-wrap: wrap; gap: 8px; }
+      .nav-cta .btn { font-size: 14px; padding: 10px 16px; }
+      .brand { flex-shrink: 0; }
+      .brand strong { font-size: 18px; }
+      .logo { width: 36px; height: 36px; }
+      
+      .hero { padding: 40px 0 50px; }
+      .hero-grid { gap: 30px; }
+      .hero-cta { flex-direction: column; gap: 12px; }
+      .hero-cta .btn { width: 100%; justify-content: center; }
+      .hero-stats { gap: 12px; }
+      .stat { padding: 20px 16px; }
+      .stat strong { font-size: 15px; }
+      .stat span { font-size: 12px; }
+      
+      .price-card { padding: 24px; }
+      .price-value { font-size: 42px; }
+      .price-prev { font-size: 22px; }
+      
+      section { padding: 50px 0; }
+      .section-title { font-size: clamp(26px, 7vw, 36px); margin-bottom: 16px; }
+      .section-lead { font-size: 17px; margin-bottom: 40px; }
+      
+      .card { padding: 24px; }
+      .card h3 { font-size: 20px; }
+      .card p { font-size: 15px; }
+      .icon { width: 48px; height: 48px; margin-bottom: 20px; }
+      .icon svg { width: 24px; height: 24px; }
+      
+      /* Audience cards responsive */
+      .audience-card { padding: 24px !important; }
+      .audience-title { font-size: 22px !important; margin-bottom: 16px !important; }
+      .audience-text { font-size: 15px !important; line-height: 1.7 !important; margin-bottom: 16px !important; }
+      .audience-list { margin-top: 16px !important; }
+      .audience-list li { font-size: 14px; }
+      
+      /* Additional Features responsive */
+      .grid.grid-2 { grid-template-columns: 1fr !important; gap: 20px !important; }
+      .additional-features { margin-top: 0 !important; }
+      
+      .cta { padding: 32px 24px; }
+      .cta .actions { flex-direction: column; gap: 12px; }
+      .cta .actions input { width: 100%; min-width: auto; }
+      .cta .actions button { width: 100%; }
+      
+      footer { padding: 40px 0; }
+      .footer-container { flex-direction: column !important; gap: 24px; text-align: center; }
+      .footer-container > div { align-items: center !important; text-align: center !important; }
+      .footer-container > div:first-child { justify-content: center !important; }
+      .footer-links-section { justify-content: center !important; }
+      .footer-right-section { align-items: center !important; text-align: center !important; max-width: 100%; }
+      
+      .auction-demo { margin-top: 20px; }
+      .auction-card { padding: 20px; }
+      .auction-price { font-size: 28px; }
+      .auction-timer { font-size: 14px; }
+    }
+
+    /* Mobile Small */
+    @media (max-width: 640px) {
+      .nav { padding: 0; }
+      .nav-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; }
+      .nav-cta { flex-wrap: wrap; gap: 8px; }
+      .nav-cta .btn { font-size: 13px; padding: 8px 14px; }
+      .theme-toggle, .lang-toggle { width: 36px; height: 36px; padding: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      
+      .nav { padding: 0; }
+      .nav-inner { padding: 12px 0; flex-wrap: nowrap; gap: 8px; }
+      .brand { flex-shrink: 0; }
+      .brand strong { font-size: 16px; }
+      .logo { width: 32px; height: 32px; }
+      .nav-cta { gap: 6px; flex-shrink: 1; min-width: 0; }
+      .nav-cta .btn { font-size: 12px; padding: 8px 12px; white-space: nowrap; }
+      .theme-toggle, .lang-toggle { width: 32px; height: 32px; padding: 6px; flex-shrink: 0; }
+      .theme-toggle svg, .lang-toggle svg { width: 16px; height: 16px; }
+      
+      .hero { padding: 30px 0 40px; }
+      h1 { font-size: clamp(28px, 9vw, 40px); line-height: 1.1; margin-bottom: 20px; }
+      .lead { font-size: 16px; line-height: 1.6; }
+      .eyebrow { font-size: 11px; padding: 5px 12px; }
+      
+      .hero-stats { grid-template-columns: 1fr; gap: 10px; }
+      .stat { padding: 16px 12px; }
+      .stat strong { font-size: 14px; }
+      .stat span { font-size: 11px; }
+      
+      .price-card { padding: 20px; }
+      .price-value { font-size: 36px; }
+      .price-prev { font-size: 18px; }
+      .badge { font-size: 12px; padding: 6px 12px; }
+      
+      section { padding: 40px 0; }
+      .section-title { font-size: clamp(24px, 8vw, 32px); }
+      .section-lead { font-size: 16px; margin-bottom: 32px; }
+      
+      .card { padding: 20px; border-radius: 20px; }
+      .card h3 { font-size: 18px; margin-bottom: 12px; }
+      .card p { font-size: 14px; }
+      .icon { width: 44px; height: 44px; margin-bottom: 16px; }
+      .icon svg { width: 22px; height: 22px; }
+      
+      /* Audience cards mobile */
+      .audience-card { padding: 20px !important; }
+      .audience-title { font-size: 20px !important; margin-bottom: 14px !important; }
+      .audience-text { font-size: 14px !important; line-height: 1.7 !important; margin-bottom: 14px !important; }
+      .audience-list { margin-top: 14px !important; gap: 10px !important; }
+      .audience-list li { font-size: 13px; }
+      
+      .list { gap: 12px; }
+      .list li { font-size: 14px; }
+      .dot { width: 8px; height: 8px; }
+      
+      .cta { padding: 24px 20px; border-radius: 20px; }
+      .cta .section-title { font-size: clamp(22px, 7vw, 28px); }
+      .cta .section-lead { font-size: 15px; }
+      
+      .btn { font-size: 15px; padding: 12px 20px; }
+      
+      footer { padding: 32px 0; }
+      .footer-container { gap: 20px; }
+      .footer-container > div { font-size: 13px; }
+      
+      .auction-card { padding: 16px; }
+      .auction-badge { font-size: 12px; padding: 6px 12px; }
+      .auction-price { font-size: 24px; }
+      .auction-timer { font-size: 13px; }
+      .bidders { font-size: 12px; }
+      
+      /* Fix grid max-width on mobile */
+      .grid-2[style*="max-width"] { max-width: 100% !important; }
+      
+      /* Mobile form improvements */
+      .cta .actions input[type="email"] { font-size: 16px; }
+      label[for="email"] { font-size: 14px; }
+      
+      /* Mobile footer links */
+      .footer-container a { font-size: 13px; }
+      .footer-container > div:first-child { flex-wrap: wrap; justify-content: center; }
+      
+      /* Mobile price row */
+      .price-row { flex-wrap: wrap; gap: 8px; }
+      
+      /* Mobile hero stats */
+      .hero-stats .stat { min-width: 0; }
+    }
+    
+    /* Extra small mobile */
+    @media (max-width: 360px) {
+      .container { padding: 0 12px; }
+      h1 { font-size: 26px; }
+      .section-title { font-size: 22px; }
+      .card { padding: 16px; }
+      .btn { font-size: 14px; padding: 10px 16px; }
+      .nav-cta .btn { font-size: 12px; padding: 6px 12px; }
     }
   </style>
 </head>
@@ -406,9 +1091,10 @@
   <!-- Nav -->
   <nav class="nav">
     <div class="container nav-inner">
-      <a class="brand" href="#top" aria-label="Tajweer home">
-        <span class="logo"><img src="assets/logo.png" alt="Tajweer logo" /></span>
-        <strong>Tajweer</strong>
+      <a class="brand" href="#top" aria-label="Hasm home">
+        <span class="logo"><img src="assets/Logo.png" alt="Hasm logo" /></span>
+        <strong data-lang="en">Hasm</strong>
+        <strong data-lang="ar">حسم</strong>
       </a>
       <div class="nav-cta">
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
@@ -426,10 +1112,10 @@
         </button>
 
         <!-- EN nav -->
-        <button class="btn btn-ghost" data-lang="en" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Features</button>
+        <button class="btn btn-ghost" data-lang="en" onclick="document.getElementById('main-features').scrollIntoView({behavior:'smooth'})">Features</button>
         <button class="btn btn-primary" data-lang="en" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Get Early Access</button>
         <!-- AR nav -->
-        <button class="btn btn-ghost" data-lang="ar" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">المزايا</button>
+        <button class="btn btn-ghost" data-lang="ar" onclick="document.getElementById('main-features').scrollIntoView({behavior:'smooth'})">المزايا</button>
         <button class="btn btn-primary" data-lang="ar" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">وصول بدري</button>
       </div>
     </div>
@@ -442,7 +1128,7 @@
         <!-- EN -->
         <div class="eyebrow" data-lang="en">Smart descending-price marketplace</div>
         <h1 data-lang="en">Move overstock fast with automated price drops</h1>
-        <p class="lead" data-lang="en">Tajweer helps brands and retailers sell slow-moving inventory using a dynamic, time-based pricing model. Buyers get genuine products at time-sensitive discounts, while sellers reduce waste and storage costs</p>
+        <p class="lead" data-lang="en">Hasm helps brands and retailers sell slow-moving inventory using a dynamic, time-based pricing model. Buyers get products at time-sensitive discounts, while sellers reduce waste and storage costs</p>
         <div class="hero-cta" data-lang="en">
           <button class="btn btn-primary" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join the waitlist</button>
           <button class="btn btn-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See how it works</button>
@@ -450,7 +1136,7 @@
         <!-- AR -->
         <div class="eyebrow" data-lang="ar">سوق ذكي والسعر ينزل لحاله</div>
         <h1 data-lang="ar">فضّ المخزون الزايد بسرعة مع نزول سعر آلي</h1>
-        <p class="lead" data-lang="ar">تجوير يساعد البراندات والبياعة يصرّفون المخزون البطيء بتسعير يعتمد على الوقت. المشتري يلقى منتجات أصلية بخصومات على وقتها، والبياع يخفف الهدر وتكاليف التخزين</p>
+        <p class="lead" data-lang="ar">حسم يساعد البراندات والبياعة يصرّفون المخزون البطيء بتسعير يعتمد على الوقت. المشتري يلقى منتجات بخصومات على وقتها، والبياع يخفف الهدر وتكاليف التخزين</p>
         <div class="hero-cta" data-lang="ar">
           <button class="btn btn-primary" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">سجّل اسمك بالقائمة</button>
           <button class="btn btn-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">شوف كيف يشتغل</button>
@@ -458,14 +1144,14 @@
 
         <!-- Stats -->
         <div class="hero-stats" style="margin-top:18px" data-lang="en">
-          <div class="stat"><strong>🦾 Automated</strong><span>Price drops until sold or min price</span></div>
-          <div class="stat"><strong>✅ Verified</strong><span>Listings from trusted merchants</span></div>
-          <div class="stat"><strong>⚡ Real-time</strong><span>Analytics and notifications</span></div>
+          <div class="stat"><strong>Automated</strong><span>Price drops until sold or min price</span></div>
+          <div class="stat"><strong>Verified</strong><span>Listings from trusted merchants</span></div>
+          <div class="stat"><strong>Real-time</strong><span>Analytics and notifications</span></div>
         </div>
         <div class="hero-stats" style="margin-top:18px" data-lang="ar">
-          <div class="stat"><strong>🦾 آلي</strong><span>السعر ينزل لين ينباع أو يوصل للحد الأدنى</span></div>
-          <div class="stat"><strong>✅ موثّق</strong><span>قوائم من تجّار موثوقين</span></div>
-          <div class="stat"><strong>⚡ لحظي</strong><span>تحليلات وتنبيهات على طول</span></div>
+          <div class="stat"><strong>آلي</strong><span>السعر ينزل لين ينباع أو يوصل للحد الأدنى</span></div>
+          <div class="stat"><strong>موثّق</strong><span>قوائم من تجّار موثوقين</span></div>
+          <div class="stat"><strong>لحظي</strong><span>تحليلات وتنبيهات على طول</span></div>
         </div>
       </div>
 
@@ -507,110 +1193,66 @@
     </div>
   </header>
 
-  <!-- How it works -->
-  <section id="how">
+  <!-- 2 Main Features -->
+  <section id="main-features">
     <div class="container">
-      <h2 class="section-title" data-lang="en">How Tajweer works</h2>
-      <p class="section-lead" data-lang="en">A dynamic, gamified buying experience built for real retail constraints</p>
-      <h2 class="section-title" data-lang="ar">كيف يشتغل تجوير</h2>
-      <p class="section-lead" data-lang="ar">تجربة شراء حماسية ومتحركة على مقاس واقع السوق</p>
-      <div class="grid grid-3">
-        <div class="card reveal">
-          <div class="icon cyan" aria-hidden="true">⏳</div>
-          <h3 data-lang="en">Automated Price Drops</h3>
-          <p data-lang="en">Start high, drop to a configured minimum over time. Inventory moves, recovery improves</p>
-          <h3 data-lang="ar">نزول سعر آلي</h3>
-          <p data-lang="ar">نبدأ بسعر أعلى وينزل تدريجياً للحد اللي تحدده. المخزون يتحرك والعائد يتحسّن</p>
+      <h2 class="section-title" data-lang="en">Two Main Features</h2>
+      <p class="section-lead" data-lang="en">Price dropping and live auctions - two powerful ways to buy and sell</p>
+      <h2 class="section-title" data-lang="ar">ميزتين رئيسيتين</h2>
+      <p class="section-lead" data-lang="ar">نزول السعر والمزادات المباشرة - طريقتين قويتين للشراء والبيع</p>
+      <div class="grid grid-2" style="max-width: 1000px; margin: 0 auto;">
+        <div class="card reveal" style="padding: 48px;">
+          <div class="icon cyan" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+            </svg>
+          </div>
+          <h3 data-lang="en" style="font-size: 28px; margin-bottom: 16px;">Automated Price Dropping</h3>
+          <p data-lang="en" style="font-size: 17px;">Prices automatically decrease over time until the product is sold. Sellers set a starting price and minimum, then watch inventory move as prices drop. Buyers get better deals the longer they wait.</p>
+          <h3 data-lang="ar" style="font-size: 28px; margin-bottom: 16px;">نزول السعر الآلي</h3>
+          <p data-lang="ar" style="font-size: 17px;">الأسعار تنزل تلقائياً مع الوقت لين ينباع المنتج. البياعة يحددون سعر البداية والحد الأدنى، وبعدين يشوفون المخزون يتحرك مع نزول الأسعار</p>
         </div>
-        <div class="card reveal">
-          <div class="icon yellow" aria-hidden="true">🔔</div>
-          <h3 data-lang="en">Smart Notifications</h3>
-          <p data-lang="en">Track items and get alerts when they hit your target price. Never miss a deal</p>
-          <h3 data-lang="ar">تنبيهات ذكية</h3>
-          <p data-lang="ar">تابع السلع ويجيك تنبيه إذا وصلت السعر اللي تبيه. ما تروح عليك الصفقة</p>
-        </div>
-        <div class="card reveal">
-          <div class="icon green" aria-hidden="true">✅</div>
-          <h3 data-lang="en">Verified Listings</h3>
-          <p data-lang="en">Trusted merchants and authorized sellers only. Authentic products, real savings</p>
-          <h3 data-lang="ar">قوائم موثّقة</h3>
-          <p data-lang="ar">تجّار موثوقين وبياعة معتمدين بس. منتجات أصلية وتوفير حقيقي</p>
+        <div class="card reveal" style="padding: 48px;">
+          <div class="icon yellow" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3 data-lang="en" style="font-size: 28px; margin-bottom: 16px;">Live Auctions</h3>
+          <p data-lang="en" style="font-size: 17px;">Participate in real-time auctions with competitive bidding. Watch prices rise as buyers compete. Get instant notifications and never miss your chance to bid on items you want.</p>
+          <h3 data-lang="ar" style="font-size: 28px; margin-bottom: 16px;">مزادات مباشرة</h3>
+          <p data-lang="ar" style="font-size: 17px;">شارك في مزادات فورية مع مزايدة تنافسية. شوف الأسعار ترتفع مع تنافس المشترين. احصل على إشعارات فورية ولا تفوت فرصتك في المزايدة على السلع اللي تبغاها</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Feature grid -->
-  <section id="features">
+  <!-- What it's for: Buyers and Suppliers -->
+  <section id="audience">
     <div class="container">
-      <h2 class="section-title" data-lang="en">Built for both sellers and buyers</h2>
-      <p class="section-lead" data-lang="en">Real-time dashboards, analytics, and controls that make liquidation modern and data-driven</p>
-      <h2 class="section-title" data-lang="ar">مصمم للبياعة والمشترين</h2>
-      <p class="section-lead" data-lang="ar">لوحات مباشرة، تحليلات، وتحكّم يخلي التصفية حديثة وتعتمد على البيانات</p>
-
-      <div class="grid grid-2">
-        <div class="card reveal">
-          <div class="icon cyan" aria-hidden="true">📈</div>
-          <h3 data-lang="en">User Dashboard</h3>
-          <p data-lang="en">Monitor performance, conversion, and revenue recovery with live analytics</p>
-          <h3 data-lang="ar">لوحة تحكّم المستخدم</h3>
-          <p data-lang="ar">راقب الأداء، والتحويل، واسترجاع الإيرادات بتحليلات لحظية</p>
-        </div>
-        <div class="card reveal">
-          <div class="icon pink" aria-hidden="true">🧭</div>
-          <h3 data-lang="en">Flexible Controls</h3>
-          <p data-lang="en">Set initial price, drop frequency, and minimums per listing to match your strategy</p>
-          <h3 data-lang="ar">تحكّم مرن</h3>
-          <p data-lang="ar">حدّد السعر الأولي، وتكرار النزول، والحد الأدنى لكل قائمة على حسب خطتك</p>
-        </div>
-        <div class="card reveal">
-          <div class="icon yellow" aria-hidden="true">🧠</div>
-          <h3 data-lang="en">Pricing Intelligence</h3>
-          <p data-lang="en">Smart defaults and insights help you choose effective price floors and schedules</p>
-          <h3 data-lang="ar">ذكاء التسعير</h3>
-          <p data-lang="ar">إعدادات ذكية ورؤى تساعدك تختار أرضية سعر وجدول فعّال</p>
-        </div>
-        <div class="card reveal">
-          <div class="icon green" aria-hidden="true">��️</div>
-          <h3 data-lang="en">Fraud Safety</h3>
-          <p data-lang="en">Merchant verification, listing audits, and buyer protections for platform trust</p>
-          <h3 data-lang="ar">أمان ضد الاحتيال</h3>
-          <p data-lang="ar">توثيق تجّار، تدقيق القوائم، وحماية للمشتري عشان ثقة المنصّة</p>
-        </div>
-        <div class="card reveal" data-lang="en">
-          <div class="icon yellow" aria-hidden="true">🎯</div>
-          <h3>Target Price Alerts</h3>
-          <p>Set your desired price and get instant notifications when items reach your target. Never miss a deal again</p>
-        </div>
-        <div class="card reveal" data-lang="ar">
-          <div class="icon yellow" aria-hidden="true">🎯</div>
-          <h3>تنبيهات السعر المستهدف</h3>
-          <p>حدد السعر المطلوب واحصل على إشعارات فورية عند وصول السلع لهدفك. لا تفوت صفقة مرة أخرى</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Target Audience -->
-  <section>
-    <div class="container">
-      <h2 class="section-title" data-lang="en">Who it's for</h2>
-      <p class="section-lead" data-lang="en">Tajweer serves both sides of the marketplace with clear incentives</p>
-      <h2 class="section-title" data-lang="ar">مين يخدم</h2>
-      <p class="section-lead" data-lang="ar">تجوير يخدم طرفي السوق بحوافز واضحة</p>
-      <div class="grid grid-2">
-        <div class="card reveal">
-          <div class="icon cyan" aria-hidden="true">🏷️</div>
-          <h3 data-lang="en">Sellers</h3>
-          <ul class="list" data-lang="en">
+      <h2 class="section-title" data-lang="en">What Hasm is for</h2>
+      <p class="section-lead" data-lang="en">A marketplace that benefits both sellers and buyers</p>
+      <h2 class="section-title" data-lang="ar">ايش حسم يخدم</h2>
+      <p class="section-lead" data-lang="ar">سوق يفيد البياعة والمشترين</p>
+      <div class="grid grid-2" style="max-width: 1000px; margin: 0 auto;">
+        <div class="card reveal audience-card">
+          <div class="icon cyan" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </div>
+          <h3 data-lang="en" class="audience-title">For Suppliers & Sellers</h3>
+          <p data-lang="en" class="audience-text">Sell slow-moving inventory faster with automated price drops or live auctions. Reduce storage costs, minimize waste, and clear overstock efficiently. Perfect for retail brands, distributors, e-commerce stores, warehouses, and liquidation centers.</p>
+          <ul class="list audience-list" data-lang="en">
             <li><span class="dot" aria-hidden="true"></span>Retail brands</li>
             <li><span class="dot" aria-hidden="true"></span>Distributors</li>
             <li><span class="dot" aria-hidden="true"></span>E-commerce stores</li>
             <li><span class="dot" aria-hidden="true"></span>Warehouses</li>
             <li><span class="dot" aria-hidden="true"></span>Liquidation centers</li>
           </ul>
-          <h3 data-lang="ar">البياعة</h3>
-          <ul class="list" data-lang="ar">
+          <h3 data-lang="ar" class="audience-title">للموزعين والبياعة</h3>
+          <p data-lang="ar" class="audience-text">بيع المخزون البطيء بسرعة مع نزول السعر الآلي أو المزادات المباشرة. قلّل تكاليف التخزين، خفّف الهدر، وصرّف المخزون الزايد بكفاءة. مثالي للبراندات، الموزعين، متاجر الإلكترونية، المستودعات، ومراكز التصفية</p>
+          <ul class="list audience-list" data-lang="ar">
             <li><span class="dot" aria-hidden="true"></span>براندات التجزئة</li>
             <li><span class="dot" aria-hidden="true"></span>الموزعين</li>
             <li><span class="dot" aria-hidden="true"></span>متاجر التجارة الإلكترونية</li>
@@ -618,16 +1260,22 @@
             <li><span class="dot" aria-hidden="true"></span>مراكز التصفية</li>
           </ul>
         </div>
-        <div class="card reveal">
-          <div class="icon pink" aria-hidden="true">🛒</div>
-          <h3 data-lang="en">Buyers</h3>
-          <ul class="list" data-lang="en">
+        <div class="card reveal audience-card">
+          <div class="icon pink" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+            </svg>
+          </div>
+          <h3 data-lang="en" class="audience-title">For Buyers</h3>
+          <p data-lang="en" class="audience-text">Get products at great prices through price drops or competitive auctions. Track items you want, set target prices, and get instant notifications. Perfect for deal seekers, budget-conscious shoppers, and smart online consumers.</p>
+          <ul class="list audience-list" data-lang="en">
             <li><span class="dot" aria-hidden="true"></span>Deal seekers</li>
             <li><span class="dot" aria-hidden="true"></span>Budget-conscious shoppers</li>
             <li><span class="dot" aria-hidden="true"></span>Trend-aware online consumers</li>
           </ul>
-          <h3 data-lang="ar">المشترين</h3>
-          <ul class="list" data-lang="ar">
+          <h3 data-lang="ar" class="audience-title">للمشترين</h3>
+          <p data-lang="ar" class="audience-text">احصل على منتجات بأسعار ممتازة من خلال نزول الأسعار أو المزادات التنافسية. تابع السلع اللي تبغاها، حدّد أسعار مستهدفة، ويوصلك إشعارات فورية. مثالي لللي يدورون الصفقات، المتسوقين الحريصين على الميزانية</p>
+          <ul class="list audience-list" data-lang="ar">
             <li><span class="dot" aria-hidden="true"></span>اللي يدورون الصفقات</li>
             <li><span class="dot" aria-hidden="true"></span>متسوقين حريصين على الميزانية</li>
             <li><span class="dot" aria-hidden="true"></span>متسوقين أونلاين مهتمين بالترند</li>
@@ -637,27 +1285,40 @@
     </div>
   </section>
 
-
-
-  <!-- Auction Features -->
-  <section>
+<!-- Additional Features -->
+  <section class="additional-features" style="margin-top: -200px;">
     <div class="container">
-      <h2 class="section-title" data-lang="en">Auction Features</h2>
-      <p class="section-lead" data-lang="en">Experience dynamic pricing with our auction technology</p>
-      <h2 class="section-title" data-lang="ar">مزايا المزاد</h2>
-      <p class="section-lead" data-lang="ar">اختبر التسعير الديناميكي مع تقنية المزاد</p>
-      <div class="grid grid-1" style="justify-content: center;">
-        <div class="card reveal" style="max-width: 500px;">
-          <div class="icon cyan" aria-hidden="true">⏰</div>
-          <h3 data-lang="en">Live Auctions</h3>
-          <p data-lang="en">Participate in real-time auctions on various products with competitive bidding</p>
-          <h3 data-lang="ar">مزادات مباشرة</h3>
-          <p data-lang="ar">شارك في مزادات فورية على منتجات متنوعة مع مزايدة تنافسية</p>
+      <div class="grid grid-2" style="max-width: 1000px; margin: 0 auto;">
+        <div class="card reveal">
+          <div class="icon green" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3 data-lang="en">Fraud Safety</h3>
+          <p data-lang="en">Merchant verification, listing audits, and buyer protections for platform trust</p>
+          <h3 data-lang="ar">أمان ضد الاحتيال</h3>
+          <p data-lang="ar">توثيق تجّار وحماية للمشتري عشان ثقة المنصّة</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon yellow" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+            </svg>
+          </div>
+          <h3 data-lang="en">Target Price Alerts</h3>
+          <p data-lang="en">Set your desired price and get instant notifications when items reach your target. Never miss a deal again</p>
+          <h3 data-lang="ar">تنبيهات السعر المستهدف</h3>
+          <p data-lang="ar">حدد السعر المطلوب واحصل على إشعارات فورية عند وصول السلع لهدفك. لا تفوت صفقة مرة أخرى</p>
         </div>
       </div>
-      
-      <!-- Animated Auction Demo -->
-      <div class="auction-demo reveal" style="margin-top: 40px;">
+    </div>
+  </section>
+
+  <!-- Animated Auction Demo -->
+  <section>
+    <div class="container">
+      <div class="auction-demo reveal">
         <div class="auction-card glass" style="padding: 24px; text-align: center; position: relative; overflow: hidden;">
           <div class="auction-badge" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(180deg, #ff6b6b, #ee5a52); color: white; padding: 8px 16px; border-radius: 20px; font-weight: 700; margin-bottom: 16px; animation: pulse 2s infinite;">
             <span class="live-dot" style="width: 8px; height: 8px; background: #fff; border-radius: 50%; animation: blink 1.5s infinite;"></span>
@@ -666,8 +1327,13 @@
           </div>
           <h3 style="margin: 0 0 8px; color: var(--text);" data-lang="en">Wireless Headphones</h3>
           <h3 style="margin: 0 0 8px; color: var(--text);" data-lang="ar">سماعات لاسلكية</h3>
-          <div class="auction-price" style="font-size: 32px; font-weight: 800; color: var(--primary); margin: 16px 0; animation: priceGlow 3s infinite;">
-            <span class="currency" style="font-size: 20px;">ر.س</span>
+          <div class="auction-price" style="font-size: 32px; font-weight: 800; color: var(--primary); margin: 16px 0; animation: priceGlow 3s infinite; display: flex; align-items: center; gap: 8px; justify-content: center;">
+            <span class="currency" style="display: inline-flex; align-items: center; line-height: 0;">
+              <svg viewBox="0 0 1124.14 1256.39" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="width: 24px; height: 24px; display: block;">
+                <path fill="currentColor" d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z"/>
+                <path fill="currentColor" d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27،11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z"/>
+              </svg>
+            </span>
             <span class="price-value" id="auctionPrice">89</span>
           </div>
           <div class="auction-timer" style="display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--warning); font-weight: 600; margin: 16px 0;">
@@ -679,8 +1345,8 @@
             <span data-lang="ar">المزاد ينتهي بعد <span id="auctionCountdownAr">45</span>ث</span>
           </div>
           <div class="bidders" style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0; font-size: 14px; color: var(--muted);">
-            <span data-lang="en">👥 <span id="bidderCount">3</span> bidders</span>
-            <span data-lang="ar">👥 <span id="bidderCountAr">3</span> مزايدين</span>
+            <span data-lang="en"><span id="bidderCount">3</span> bidders</span>
+            <span data-lang="ar"><span id="bidderCountAr">3</span> مزايدين</span>
           </div>
           <div class="auction-progress" style="width: 100%; height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; margin: 16px 0;">
             <div class="progress-bar" style="height: 100%; background: linear-gradient(90deg, var(--accent), var(--primary)); width: 75%; animation: progressShimmer 2s infinite;"></div>
@@ -692,57 +1358,24 @@
     </div>
   </section>
 
-  <!-- Competitive Advantage -->
-  <section>
-    <div class="container">
-      <h2 class="section-title" data-lang="en">Why Tajweer wins</h2>
-      <p class="section-lead" data-lang="en">Urgency + transparency = an engaging, modern buying experience</p>
-      <h2 class="section-title" data-lang="ar">ليش تجوير يكسب</h2>
-      <p class="section-lead" data-lang="ar">السرعة + الوضوح = تجربة شراء حماسية وعصرية</p>
-      <div class="grid grid-3">
-        <div class="card reveal">
-          <div class="icon green" aria-hidden="true">♻️</div>
-          <h3 data-lang="en">Reduce Waste</h3>
-          <p data-lang="en">Sellers move unsold stock and cut storage costs, faster</p>
-          <h3 data-lang="ar">تقليل الهدر</h3>
-          <p data-lang="ar">البياعة يحرّكون المخزون الراكد ويقلّلون تكلفة التخزين بسرعة</p>
-        </div>
-        <div class="card reveal">
-          <div class="icon cyan" aria-hidden="true">⚡</div>
-          <h3 data-lang="en">Engage Buyers</h3>
-          <p data-lang="en">Real-time drops and alerts keep buyers coming back</p>
-          <h3 data-lang="ar">تحميس المشترين</h3>
-          <p data-lang="ar">نزلات لحظية وتنبيهات تخليهم يرجعون دايم</p>
-        </div>
-        <div class="card reveal">
-          <div class="icon pink" aria-hidden="true">🎯</div>
-          <h3 data-lang="en">Data-Driven</h3>
-          <p data-lang="en">Transparent mechanics with analytics for confident decisions</p>
-          <h3 data-lang="ar">قرارات مبنية على بيانات</h3>
-          <p data-lang="ar">آليات واضحة مع تحليلات تعطيك قرار واثق</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CTA -->
   <section id="waitlist">
     <div class="container">
       <div class="cta glass reveal" role="region" aria-labelledby="cta-title">
         <!-- EN -->
-        <h2 id="cta-title-en" class="section-title" style="margin:0" data-lang="en">Be first to the drop</h2>
-        <p class="section-lead" style="margin:0" data-lang="en">Join the early access list to get launch updates and exclusive beta invites</p>
+        <h2 id="cta-title-en" class="section-title" style="margin:0; color: #ffffff;" data-lang="en">Be first to the drop</h2>
+        <p class="section-lead" style="margin:0; color: #ffffff;" data-lang="en">Join the early access list to get launch updates and exclusive beta invites</p>
         <!-- AR -->
-        <h2 id="cta-title-ar" class="section-title" style="margin:0" data-lang="ar">لا تفوّت النزلة، كن أول واحد</h2>
-        <p class="section-lead" style="margin:0" data-lang="ar">سجّل بالقائمة عشان توصلك أخبار الإطلاق ودعوات البيتا الخاصة</p>
+        <h2 id="cta-title-ar" class="section-title" style="margin:0; color: #ffffff;" data-lang="ar">لا تفوّت النزلة، كن أول واحد</h2>
+        <p class="section-lead" style="margin:0; color: #ffffff;" data-lang="ar">سجّل بالقائمة عشان توصلك أخبار الإطلاق</p>
 
-        <form id="waitlistForm" action="https://formsubmit.co/info@tajweer.com" method="POST" class="actions" aria-label="Join waitlist">
+        <form id="waitlistForm" action="https://formsubmit.co/info@hasm.io" method="POST" class="actions" aria-label="Join waitlist">
           <input type="hidden" name="_next" value="/" />
-          <input type="hidden" name="_subject" value="New Tajweer waitlist signup" />
+          <input type="hidden" name="_subject" value="New Hasm waitlist signup" />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
-          <label for="email" class="visually-hidden">Email</label>
+          <label for="email" style="color: #ffffff; display: block; margin-bottom: 8px; font-weight: 500;">Email</label>
           <input id="email" name="email" type="email" required placeholder="you@company.com" aria-label="Email address" style="padding:12px 14px; border-radius:10px; border:1px solid rgba(0,0,0,.2); background: rgba(255,255,255,.9); color: var(--text); min-width:260px; outline: none;">
           <style>
             #email::placeholder {
@@ -761,39 +1394,40 @@
         </form>
 
         <iframe id="waitlistFrame" name="waitlistFrame" style="display:none"></iframe>
-        <small style="color:var(--muted)" data-lang="en">We'll only email about Tajweer. No spam</small>
-        <small style="color:var(--muted)" data-lang="ar">بنرسلك إيميلات عن تجوير بس. ما فيه إزعاج</small>
+        <small style="color:#ffffff;" data-lang="en">We'll only email about Hasm. No spam</small>
+        <small style="color:#ffffff;" data-lang="ar">بنرسلك إيميلات عن حسم بس. ما فيه إزعاج</small>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="container footer-container" style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
-      <!-- Left: Links -->
-      <div style="display:flex; gap:14px; color:var(--muted);">
-        <!-- EN -->
-        <a href="#features" style="color:inherit; text-decoration:none" data-lang="en">Features</a>
-        <a href="#how" style="color:inherit; text-decoration:none" data-lang="en">How it works</a>
-        <a href="#waitlist" style="color:inherit; text-decoration:none" data-lang="en">Waitlist</a>
-        <!-- AR -->
-        <a href="#features" style="color:inherit; text-decoration:none" data-lang="ar">المزايا</a>
-        <a href="#how" style="color:inherit; text-decoration:none" data-lang="ar">كيف يشتغل</a>
-        <a href="#waitlist" style="color:inherit; text-decoration:none" data-lang="ar">القائمة</a>
+    <div class="container footer-container" style="display:flex; align-items:start; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+      <!-- Left: Price Alerts -->
+      <div class="footer-left-section" style="display:flex; flex-direction:column; gap:4px; align-items:flex-start; text-align:left; justify-content:flex-start; flex-shrink:0;">
+        <div style="display:flex; align-items:center; gap:8px; color:var(--primary); font-weight:600; font-size:14px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.5 0 2.9.37 4.13 1.02" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span data-lang="en">Don't miss the deal</span>
+          <span data-lang="ar">لا تفوت الصفقة</span>
+        </div>
       </div>
       
       <!-- Center: Logo, Contact & Copyright -->
-      <div style="display:flex; flex-direction:column; gap:8px; align-items:center; text-align:center;">
+      <div style="display:flex; flex-direction:column; gap:8px; align-items:center; text-align:center; flex:1; min-width:0;">
         <div style="display:flex; align-items:center; gap:10px;">
-          <span class="logo"><img src="assets/logo.png" alt="Tajweer logo" /></span>
-          <strong>Tajweer</strong>
+          <span class="logo"><img src="assets/logo.png" alt="Hasm logo" /></span>
+          <strong data-lang="en">Hasm</strong>
+          <strong data-lang="ar">حسم</strong>
         </div>
         <div style="display:flex; gap:20px; color:var(--muted); font-size:14px;">
-          <a href="mailto:info@tajweer.com" style="color:inherit; text-decoration:none; display:flex; align-items:center; gap:6px;">
+          <a href="mailto:info@hasm.io" style="color:inherit; text-decoration:none; display:flex; align-items:center; gap:6px;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            info@tajweer.com
+            info@hasm.io
           </a>
           <a href="tel:+966502925742" style="color:inherit; text-decoration:none; display:flex; align-items:center; gap:6px;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -802,20 +1436,20 @@
             +966 50 292 5742
           </a>
         </div>
-        <small style="color:var(--muted)" data-lang="en">© <span id="year"></span> Tajweer. All rights reserved</small>
-        <small style="color:var(--muted)" data-lang="ar">© <span id="year"></span> تجوير. كل الحقوق محفوظة</small>
+        <small style="color:var(--muted)" data-lang="en">© <span id="year"></span> Hasm. All rights reserved</small>
+        <small style="color:var(--muted)" data-lang="ar">© <span id="year"></span> حسم. كل الحقوق محفوظة</small>
       </div>
       
-      <!-- Right: Price Alerts -->
-      <div class="footer-right-section" style="display:flex; flex-direction:column; gap:4px; align-items:flex-end; text-align:right; max-width:300px;">
-        <div style="display:flex; align-items:center; gap:8px; color:var(--primary); font-weight:600; font-size:14px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.5 0 2.9.37 4.13 1.02" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span data-lang="en">Don’t miss the deal</span>
-          <span data-lang="ar">لا تفوت الصفقة</span>
-        </div>
+      <!-- Right: Links -->
+      <div class="footer-links-section" style="display:flex; flex-direction:row; gap:14px; color:var(--muted); align-items:center; flex-shrink:0; margin-left:auto;">
+        <!-- EN -->
+        <a href="#main-features" style="color:inherit; text-decoration:none" data-lang="en">Features</a>
+        <a href="#audience" style="color:inherit; text-decoration:none" data-lang="en">What Hasm is for</a>
+        <a href="#waitlist" style="color:inherit; text-decoration:none" data-lang="en">Waitlist</a>
+        <!-- AR -->
+        <a href="#main-features" style="color:inherit; text-decoration:none" data-lang="ar">المزايا</a>
+        <a href="#audience" style="color:inherit; text-decoration:none" data-lang="ar">ايش حسم يخدم</a>
+        <a href="#waitlist" style="color:inherit; text-decoration:none" data-lang="ar">القائمة</a>
       </div>
     </div>
   </footer>
@@ -1104,6 +1738,26 @@
         html.setAttribute('data-lang', newLang);
         localStorage.setItem('lang', newLang);
         applyTickerVisibility(newLang);
+      });
+    });
+
+    // Fix any remaining empty icon divs or icons with corrupted emojis
+    document.addEventListener('DOMContentLoaded', () => {
+      const allIcons = document.querySelectorAll('.icon');
+      allIcons.forEach(icon => {
+        if (!icon.querySelector('svg') && icon.textContent.trim().length > 0) {
+          // Has text but no SVG - likely corrupted emoji
+          const parentCard = icon.closest('.card');
+          if (parentCard) {
+            const h3 = parentCard.querySelector('h3');
+            if (h3) {
+              const text = h3.textContent;
+              if (text.includes('Fraud Safety') || text.includes('أمان ضد الاحتيال')) {
+                icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>';
+              }
+            }
+          }
+        }
       });
     });
   </script>
