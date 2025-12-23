@@ -970,10 +970,24 @@
       
       footer { padding: 40px 0; }
       .footer-container { flex-direction: column !important; gap: 24px; text-align: center; }
-      .footer-container > div { align-items: center !important; text-align: center !important; }
+      .footer-container > div { align-items: center !important; text-align: center !important; width: 100% !important; }
       .footer-container > div:first-child { justify-content: center !important; }
-      .footer-links-section { justify-content: center !important; }
+      .footer-left-section { width: 100% !important; align-items: center !important; }
+      .footer-links-section { justify-content: center !important; flex-wrap: wrap !important; width: 100% !important; margin-left: 0 !important; }
       .footer-right-section { align-items: center !important; text-align: center !important; max-width: 100%; }
+      
+      /* Center section contact info - wrap on mobile */
+      .footer-container > div:nth-child(2) { width: 100% !important; }
+      .footer-container > div:nth-child(2) > div:nth-child(2) { 
+        flex-direction: column !important; 
+        gap: 12px !important; 
+        align-items: center !important;
+        flex-wrap: wrap !important;
+      }
+      .footer-container > div:nth-child(2) > div:nth-child(2) a {
+        white-space: normal !important;
+        word-break: break-word !important;
+      }
       
       .auction-demo { margin-top: 20px; }
       .auction-card { padding: 20px; }
@@ -1047,7 +1061,58 @@
       
       footer { padding: 32px 0; }
       .footer-container { gap: 20px; }
-      .footer-container > div { font-size: 13px; }
+      .footer-container > div { font-size: 13px; width: 100% !important; }
+      
+      /* Footer left section - center on mobile */
+      .footer-left-section { 
+        width: 100% !important; 
+        align-items: center !important; 
+        text-align: center !important;
+      }
+      
+      /* Footer center section - full width */
+      .footer-container > div:nth-child(2) { 
+        width: 100% !important; 
+        min-width: 0 !important;
+        padding: 0 8px;
+      }
+      
+      /* Contact info - stack vertically on small screens */
+      .footer-container > div:nth-child(2) > div:nth-child(2) { 
+        flex-direction: column !important; 
+        gap: 12px !important; 
+        align-items: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .footer-container > div:nth-child(2) > div:nth-child(2) a {
+        font-size: 13px !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        text-align: center !important;
+        max-width: 100% !important;
+      }
+      
+      /* Footer links - wrap and center */
+      .footer-links-section { 
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+      .footer-links-section a {
+        font-size: 13px !important;
+        padding: 4px 8px;
+      }
+      
+      /* Copyright text */
+      .footer-container > div:nth-child(2) small {
+        font-size: 12px !important;
+        text-align: center !important;
+      }
       
       .auction-card { padding: 16px; }
       .auction-badge { font-size: 12px; padding: 6px 12px; }
@@ -1061,10 +1126,6 @@
       /* Mobile form improvements */
       .cta .actions input[type="email"] { font-size: 16px; }
       label[for="email"] { font-size: 14px; }
-      
-      /* Mobile footer links */
-      .footer-container a { font-size: 13px; }
-      .footer-container > div:first-child { flex-wrap: wrap; justify-content: center; }
       
       /* Mobile price row */
       .price-row { flex-wrap: wrap; gap: 8px; }
@@ -1081,6 +1142,22 @@
       .card { padding: 16px; }
       .btn { font-size: 14px; padding: 10px 16px; }
       .nav-cta .btn { font-size: 12px; padding: 6px 12px; }
+      
+      /* Extra small footer adjustments */
+      footer { padding: 24px 0; }
+      .footer-container { gap: 16px; }
+      .footer-container > div { font-size: 12px; }
+      .footer-container > div:nth-child(2) > div:nth-child(2) a {
+        font-size: 12px !important;
+      }
+      .footer-links-section { gap: 8px !important; }
+      .footer-links-section a {
+        font-size: 12px !important;
+        padding: 4px 6px;
+      }
+      .footer-container > div:nth-child(2) small {
+        font-size: 11px !important;
+      }
     }
   </style>
 </head>
